@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎈 Ira's New Practice Adventure 🎈</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleBounce 3s ease infinite;
+        }
+
+        @keyframes titleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #34495e;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            background: white;
+            border-radius: 30px;
+            padding: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            border: 3px solid #ff9ff3;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #ff9a9e, #fecfef, #a8edea);
+            height: 25px;
+            border-radius: 20px;
+            transition: width 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 30px;
+            padding: 45px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+            border: 4px solid #fecfef;
+            transform: scale(0.9);
+            animation: cardPop 0.6s ease forwards;
+        }
+
+        @keyframes cardPop {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .interviewer {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            animation: interviewerPulse 2s ease infinite;
+            border: 4px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        @keyframes interviewerPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .speech-bubble {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 25px 0;
+            position: relative;
+            border: 3px solid #dee2e6;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 18px solid #dee2e6;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 15px solid #f8f9fa;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .question-category {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff9a9e, #fecfef);
+            color: #2c3e50;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 2px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .response-area {
+            margin: 35px 0;
+        }
+
+        .response-input {
+            width: 100%;
+            padding: 20px;
+            border: 4px solid #fecfef;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        }
+
+        .response-input:focus {
+            outline: none;
+            border-color: #ff9a9e;
+            box-shadow: 0 0 15px rgba(255, 154, 158, 0.4);
+            transform: scale(1.02);
+        }
+
+        .visual-question {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin: 25px 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .visual-option {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-size: 2.2rem;
+            border: 4px solid transparent;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .visual-option:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .visual-option.selected {
+            border-color: #ff9a9e;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 154, 158, 0.4);
+        }
+
+        .pattern-option {
+            display: flex;
+            gap: 5px;
+            font-size: 1.5rem;
+        }
+
+        .sequence-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .sequence-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            border: 3px solid #dee2e6;
+            background: white;
+        }
+
+        .sequence-blank {
+            border: 3px dashed #ff9a9e;
+            background: linear-gradient(135deg, #fff, #fecfef);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sequence-blank:hover {
+            transform: scale(1.1);
+            border-color: #ff6b6b;
+        }
+
+        .drawing-area {
+            width: 100%;
+            height: 200px;
+            border: 4px dashed #ff9a9e;
+            border-radius: 20px;
+            background: white;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .drawing-area:hover {
+            border-color: #ff6b6b;
+            background: #fefefe;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            color: #2c3e50;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            color: #2c3e50;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            color: #2c3e50;
+        }
+
+        .encouragement {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            animation: encouragementGlow 2s ease infinite;
+            border: 3px solid #f39c12;
+        }
+
+        @keyframes encouragementGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(243, 156, 18, 0.6);
+            }
+        }
+
+        .encouragement-text {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .celebration {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .celebration-title {
+            font-size: 3rem;
+            color: #27ae60;
+            margin-bottom: 25px;
+            animation: celebrationSpin 2s ease infinite;
+        }
+
+        @keyframes celebrationSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(10deg) scale(1.1); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        .stars {
+            font-size: 3.5rem;
+            margin: 25px 0;
+            animation: starDance 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes starDance {
+            from {
+                transform: rotate(-10deg);
+                opacity: 1;
+            }
+            to {
+                transform: rotate(10deg);
+                opacity: 0.7;
+            }
+        }
+
+        .start-screen {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .start-title {
+            font-size: 3.2rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+
+        .start-description {
+            font-size: 1.4rem;
+            color: #34495e;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        .category-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 25px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 3px solid #fecfef;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px) rotate(2deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border-color: #ff9a9e;
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .category-description {
+            font-size: 1rem;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .question-card {
+                padding: 30px;
+                margin: 15px;
+            }
+            
+            .question-text {
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                padding: 15px 28px;
+                font-size: 1rem;
+            }
+            
+            .visual-option {
+                width: 80px;
+                height: 80px;
+                font-size: 1.8rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .emoji-rain {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🎈 Ira's New Practice Adventure 🎈</h1>
+            <p class="subtitle">Ready for more fun questions and games?</p>
+            
+            <div class="progress-container hidden" id="progressContainer">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Start Screen -->
+            <div id="startScreen" class="start-screen">
+                <h2 class="start-title">🌈 Welcome Back, Ira! 🌈</h2>
+                <p class="start-description">
+                    I have brand new questions and fun activities for you! 
+                    Let's explore different topics and play some exciting games together.
+                    Remember, you're amazing and every answer you give is perfect! 🎪
+                </p>
+                
+                <div class="category-selector">
+                    <div class="category-card" onclick="startCategory('family')">
+                        <div class="category-icon">👨‍👩‍👧‍👦</div>
+                        <div class="category-title">Family & Friends</div>
+                        <div class="category-description">Tell me about the special people in your life!</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="startCategory('patterns')">
+                        <div class="category-icon">🔤</div>
+                        <div class="category-title">Patterns & Logic</div>
+                        <div class="category-description">Let's solve puzzles and find patterns together!</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="startCategory('world')">
+                        <div class="category-icon">🌍</div>
+                        <div class="category-title">Our Amazing World</div>
+                        <div class="category-description">Explore animals, weather, and nature!</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="startCategory('creative')">
+                        <div class="category-icon">🎨</div>
+                        <div class="category-title">Creative & Fun</div>
+                        <div class="category-description">Stories, imagination, and creativity!</div>
+                    </div>
+                    
+                    <div class="category-card" onclick="startCategory('mixed')">
+                        <div class="category-icon">🎲</div>
+                        <div class="category-title">Mix It Up!</div>
+                        <div class="category-description">All different types of questions together!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question Screen -->
+            <div id="questionScreen" class="question-card hidden">
+                <div class="interviewer" id="interviewer">🎪</div>
+                
+                <div class="speech-bubble">
+                    <div class="question-category" id="questionCategory"></div>
+                    <div class="question-text" id="questionText"></div>
+                </div>
+
+                <div class="response-area" id="responseArea">
+                    <!-- Response input will be dynamically added here -->
+                </div>
+
+                <div class="encouragement hidden" id="encouragement">
+                    <div class="encouragement-text" id="encouragementText"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">
+                        Next Adventure! 🚀
+                    </button>
+                    <button class="btn btn-secondary" onclick="goHome()">
+                        Back to Home 🏠
+                    </button>
+                </div>
+            </div>
+
+            <!-- Celebration Screen -->
+            <div id="celebrationScreen" class="celebration hidden">
+                <h2 class="celebration-title">🎊 Outstanding Work, Ira! 🎊</h2>
+                <div class="stars">🌟 ✨ 🎈 ✨ 🌟</div>
+                <p style="font-size: 1.5rem; color: #2c3e50; margin: 25px 0;">
+                    You're getting better and better every time! You're going to shine so bright in your interview!
+                </p>
+                <button class="btn btn-success" onclick="goHome()" style="margin-top: 25px;">
+                    Try Another Adventure! 🎮
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // New question data with fresh categories
+        const questionCategories = {
+            family: {
+                name: "Family & Friends",
+                icon: "👨‍👩‍👧‍👦",
+                questions: [
+                    { text: "How many people live in your house?", type: "text", encouragement: "What a lovely family you have!" },
+                    { text: "Do you have any brothers or sisters?", type: "text", encouragement: "Siblings can be so much fun!" },
+                    { text: "What does your mom or dad do for work?", type: "text", encouragement: "That sounds like an important job!" },
+                    { text: "Who is your best friend?", type: "text", encouragement: "Friends make everything more fun!" },
+                    { text: "What do you like to do with your family?", type: "text", encouragement: "Family time is the best time!" },
+                    { text: "Do you have grandparents? What do you call them?", type: "text", encouragement: "Grandparents are so special!" },
+                    { text: "What makes your family special?", type: "text", encouragement: "Every family is unique and wonderful!" }
+                ]
+            },
+            patterns: {
+                name: "Patterns & Logic",
+                icon: "🔤",
+                questions: [
+                    { text: "What comes next in this pattern? 🔴🔵🔴🔵...", type: "visual", options: ["🔴", "🔵", "🟡", "🟢"], answer: "🔴", encouragement: "Perfect! You found the pattern!" },
+                    { text: "Which number comes between 3 and 5?", type: "visual", options: ["2", "4", "6", "7"], answer: "4", encouragement: "Excellent! 4 comes between 3 and 5!" },
+                    { text: "If you have 2 apples and I give you 1 more, how many do you have?", type: "visual", options: ["1", "2", "3", "4"], answer: "3", encouragement: "Great counting! 2 + 1 = 3!" },
+                    { text: "What rhymes with 'cat'?", type: "visual", options: ["dog", "hat", "car", "book"], answer: "hat", encouragement: "Wonderful! Cat and hat rhyme!" },
+                    { text: "Which one is different? 🐶🐶🐱🐶", type: "visual", options: ["🐶", "🐱", "🐭", "🐹"], answer: "🐱", encouragement: "Great observation! The cat is different!" },
+                    { text: "What shape has 3 sides?", type: "visual", options: ["⭐", "🔺", "⬜", "⭕"], answer: "🔺", encouragement: "Perfect! A triangle has 3 sides!" },
+                    { text: "Complete the sequence: Big, Medium, ___", type: "visual", options: ["Huge", "Small", "Tiny", "Large"], answer: "Small", encouragement: "Excellent! You understand size order!" }
+                ]
+            },
+            world: {
+                name: "Our Amazing World",
+                icon: "🌍",
+                questions: [
+                    { text: "What sound does a cow make?", type: "text", encouragement: "Moo! That's exactly right!" },
+                    { text: "What do plants need to grow?", type: "visual", options: ["🌞 Sun", "💧 Water", "🌱 Soil", "🌈 All of these"], answer: "🌈 All of these", encouragement: "Amazing! Plants need sun, water, AND soil!" },
+                    { text: "Where do fish live?", type: "visual", options: ["🏠 House", "🌊 Water", "🌳 Tree", "☁️ Sky"], answer: "🌊 Water", encouragement: "Perfect! Fish live in water!" },
+                    { text: "What do you wear when it's raining?", type: "visual", options: ["🕶️ Sunglasses", "🧥 Jacket", "👙 Swimsuit", "🧢 Hat"], answer: "🧥 Jacket", encouragement: "Smart choice! A jacket keeps you dry!" },
+                    { text: "Which animal is the biggest?", type: "visual", options: ["🐭 Mouse", "🐘 Elephant", "🐶 Dog", "🐰 Rabbit"], answer: "🐘 Elephant", encouragement: "Correct! Elephants are huge!" },
+                    { text: "What season comes after winter?", type: "visual", options: ["🌸 Spring", "☀️ Summer", "🍂 Fall", "❄️ Winter"], answer: "🌸 Spring", encouragement: "Yes! Spring comes after winter!" },
+                    { text: "How many eyes do you have?", type: "visual", options: ["1", "2", "3", "4"], answer: "2", encouragement: "That's right! You have 2 eyes!" }
+                ]
+            },
+            creative: {
+                name: "Creative & Fun",
+                icon: "🎨",
+                questions: [
+                    { text: "If you could be any animal for a day, what would you be?", type: "text", encouragement: "What an exciting animal to be!" },
+                    { text: "Tell me about your favorite toy or game.", type: "text", encouragement: "That sounds like so much fun to play with!" },
+                    { text: "What's your favorite food to eat?", type: "text", encouragement: "Yummy! That sounds delicious!" },
+                    { text: "If you found a magic lamp, what would you wish for?", type: "text", encouragement: "What a wonderful wish!" },
+                    { text: "What makes you laugh the most?", type: "text", encouragement: "Laughter is the best medicine!" },
+                    { text: "Describe your perfect day.", type: "text", encouragement: "That sounds like an amazing day!" },
+                    { text: "What superhero power would you want?", type: "text", encouragement: "You'd be an amazing superhero!" },
+                    { text: "What's the silliest thing you can think of?", type: "text", encouragement: "That's so silly and funny!" }
+                ]
+            }
+        };
+
+        // Game state
+        let currentCategory = null;
+        let currentQuestionIndex = 0;
+        let allQuestions = [];
+        let answeredQuestions = 0;
+
+        // DOM elements
+        const startScreen = document.getElementById('startScreen');
+        const questionScreen = document.getElementById('questionScreen');
+        const celebrationScreen = document.getElementById('celebrationScreen');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const questionCategory = document.getElementById('questionCategory');
+        const questionText = document.getElementById('questionText');
+        const responseArea = document.getElementById('responseArea');
+        const encouragement = document.getElementById('encouragement');
+        const encouragementText = document.getElementById('encouragementText');
+        const interviewer = document.getElementById('interviewer');
+
+        // Interviewer expressions
+        const interviewerFaces = ['🎪', '🎨', '🌈', '⭐', '🎈', '🦄', '🎭', '🎯', '🎪', '🎠'];
+
+        function startCategory(categoryName) {
+            startScreen.classList.add('hidden');
+            questionScreen.classList.remove('hidden');
+            progressContainer.classList.remove('hidden');
+
+            if (categoryName === 'mixed') {
+                allQuestions = [];
+                Object.keys(questionCategories).forEach(cat => {
+                    allQuestions = allQuestions.concat(
+                        questionCategories[cat].questions.map(q => ({
+                            ...q,
+                            category: questionCategories[cat].name
+                        }))
+                    );
+                });
+                // Shuffle questions for variety
+                allQuestions = shuffleArray(allQuestions);
+                // Limit to 10 questions for mixed mode
+                allQuestions = allQuestions.slice(0, 10);
+            } else {
+                currentCategory = categoryName;
+                allQuestions = questionCategories[categoryName].questions.map(q => ({
+                    ...q,
+                    category: questionCategories[categoryName].name
+                }));
+            }
+
+            currentQuestionIndex = 0;
+            answeredQuestions = 0;
+            showQuestion();
+        }
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= allQuestions.length) {
+                showCelebration();
+                return;
+            }
+
+            const question = allQuestions[currentQuestionIndex];
+            
+            // Update progress
+            const progress = Math.round((currentQuestionIndex / allQuestions.length) * 100);
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = progress + '%';
+
+            // Update question display
+            questionCategory.textContent = question.category;
+            questionText.textContent = question.text;
+            
+            // Hide encouragement initially
+            encouragement.classList.add('hidden');
+            
+            // Create response area based on question type
+            createResponseArea(question);
+            
+            // Animate interviewer
+            animateInterviewer();
+        }
+
+        function createResponseArea(question) {
+            responseArea.innerHTML = '';
+
+            if (question.type === 'text') {
+                const input = document.createElement('textarea');
+                input.className = 'response-input';
+                input.placeholder = 'Share your thoughts here... I can\'t wait to hear! 💭';
+                input.rows = 4;
+                responseArea.appendChild(input);
+            } else if (question.type === 'visual') {
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'visual-question';
+                
+                question.options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'visual-option';
+                    button.innerHTML = option;
+                    button.onclick = () => selectVisualOption(button, option, question.answer);
+                    optionsContainer.appendChild(button);
+                });
+                
+                responseArea.appendChild(optionsContainer);
+            }
+        }
+
+        function selectVisualOption(button, selected, correct) {
+            // Remove previous selections
+            document.querySelectorAll('.visual-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Mark current selection
+            button.classList.add('selected');
+            
+            // Show encouragement
+            const isCorrect = selected === correct;
+            showEncouragement(isCorrect ? allQuestions[currentQuestionIndex].encouragement : "Great thinking! Every answer helps you learn something new! 🌱");
+        }
+
+        function showEncouragement(message) {
+            encouragementText.textContent = message;
+            encouragement.classList.remove('hidden');
+            
+            // Create floating emojis
+            createFloatingEmojis();
+            
+            // Auto-advance after visual questions
+            setTimeout(() => {
+                nextQuestion();
+            }, 2500);
+        }
+
+        function createFloatingEmojis() {
+            const emojis = ['🌟', '✨', '🎉', '🎈', '🦄', '🌈', '💫', '⭐'];
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.className = 'emoji-rain';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = '-50px';
+                    emoji.style.fontSize = '2rem';
+                    emoji.style.position = 'fixed';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.zIndex = '9999';
+                    document.body.appendChild(emoji);
+                    
+                    emoji.animate([
+                        { transform: 'translateY(-50px) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(100vh) rotate(720deg)`, opacity: 0 }
+                    ], {
+                        duration: 3000 + Math.random() * 2000,
+                        easing: 'ease-out'
+                    }).onfinish = () => emoji.remove();
+                }, i * 200);
+            }
+        }
+
+        function nextQuestion() {
+            const question = allQuestions[currentQuestionIndex];
+            
+            // Show encouragement for text questions
+            if (question.type === 'text') {
+                const input = responseArea.querySelector('.response-input');
+                if (input && input.value.trim()) {
+                    showEncouragement(question.encouragement);
+                    setTimeout(() => {
+                        currentQuestionIndex++;
+                        answeredQuestions++;
+                        showQuestion();
+                    }, 2000);
+                } else {
+                    // Encourage them to try
+                    showEncouragement("I'd love to hear what you think! Give it a try! 🎤");
+                }
+            } else {
+                // Visual question - advance immediately
+                currentQuestionIndex++;
+                answeredQuestions++;
+                showQuestion();
+            }
+        }
+
+        function animateInterviewer() {
+            const randomFace = interviewerFaces[Math.floor(Math.random() * interviewerFaces.length)];
+            interviewer.textContent = randomFace;
+        }
+
+        function showCelebration() {
+            questionScreen.classList.add('hidden');
+            celebrationScreen.classList.remove('hidden');
+            progressContainer.classList.add('hidden');
+            
+            // Major celebration effect
+            createMajorCelebration();
+        }
+
+        function createMajorCelebration() {
+            const celebrationEmojis = ['🎊', '🎉', '🌟', '⭐', '✨', '🎈', '🦄', '🌈', '💖', '🎪'];
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.textContent = celebrationEmojis[Math.floor(Math.random() * celebrationEmojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = '-50px';
+                    emoji.style.fontSize = '2.5rem';
+                    emoji.style.zIndex = '9999';
+                    emoji.style.pointerEvents = 'none';
+                    document.body.appendChild(emoji);
+                    
+                    const duration = 4000 + Math.random() * 3000;
+                    emoji.animate([
+                        { transform: 'translateY(-50px) rotate(0deg) scale(0)', opacity: 1 },
+                        { transform: `translateY(50vh) rotate(360deg) scale(1)`, opacity: 1 },
+                        { transform: `translateY(100vh) rotate(720deg) scale(0)`, opacity: 0 }
+                    ], {
+                        duration: duration,
+                        easing: 'ease-in-out'
+                    }).onfinish = () => emoji.remove();
+                }, i * 150);
+            }
+        }
+
+        function goHome() {
+            startScreen.classList.remove('hidden');
+            questionScreen.classList.add('hidden');
+            celebrationScreen.classList.add('hidden');
+            progressContainer.classList.add('hidden');
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add initial sparkle effect to title
+            setInterval(() => {
+                if (!startScreen.classList.contains('hidden')) {
+                    const sparkle = document.createElement('div');
+                    sparkle.textContent = '✨';
+                    sparkle.style.position = 'absolute';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = '10%';
+                    sparkle.style.fontSize = '1.5rem';
+                    sparkle.style.pointerEvents = 'none';
+                    sparkle.style.zIndex = '100';
+                    document.querySelector('.header').appendChild(sparkle);
+                    
+                    sparkle.animate([
+                        { opacity: 0, transform: 'translateY(0px) scale(0)' },
+                        { opacity: 1, transform: 'translateY(-30px) scale(1)' },
+                        { opacity: 0, transform: 'translateY(-60px) scale(0)' }
+                    ], {
+                        duration: 2000,
+                        easing: 'ease-out'
+                    }).onfinish = () => sparkle.remove();
+                }
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
